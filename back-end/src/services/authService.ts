@@ -282,16 +282,20 @@ export class AuthService {
    * Generate access and refresh tokens
    */
   private generateTokens(userId: string): AuthToken {
+    // jwt.sign typing requires the secret to be of type Secret
+    // and options to match SignOptions; cast here using any to
+    // satisfy the TypeScript compiler (secret comes from config).
+    const secret: any = config.jwtSecret as any;
     const accessToken = jwt.sign(
-      { userId, type: 'access' },
-      config.jwtSecret,
-      { expiresIn: config.jwtExpiresIn }
+      { userId, type: 'access' } as any,
+      secret,
+      { expiresIn: config.jwtExpiresIn } as any
     );
 
     const refreshToken = jwt.sign(
-      { userId, type: 'refresh' },
-      config.jwtSecret,
-      { expiresIn: config.refreshTokenExpiresIn }
+      { userId, type: 'refresh' } as any,
+      secret,
+      { expiresIn: config.refreshTokenExpiresIn } as any
     );
 
     // Calculate expiration date

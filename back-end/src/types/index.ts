@@ -151,7 +151,10 @@ export interface AuthToken {
 
 export interface AuthResult {
   success: boolean;
-  user?: User;
+  // user may be the full User object during internal operations,
+  // but public responses should not include passwordHash. Allow
+  // either the full User (internal) or the sanitized user shape.
+  user?: User | Omit<User, 'passwordHash'>;
   token?: AuthToken;
   error?: string;
 }
