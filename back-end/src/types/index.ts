@@ -73,7 +73,7 @@ export interface Organizer {
 export interface Price {
   amount: number;
   currency: string;
-  isFree: boolean;
+  isFree?: boolean;
 }
 
 export interface PriceRange {
@@ -83,7 +83,7 @@ export interface PriceRange {
 }
 
 export interface EventSource {
-  type: 'crawled' | 'user_submitted';
+  type: 'crawled' | 'user-submitted';
   url?: string;
   crawlDate?: Date;
 }

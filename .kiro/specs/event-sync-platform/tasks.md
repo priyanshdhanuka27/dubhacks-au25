@@ -107,7 +107,7 @@
     - Create calendar integration success/error feedback UI
     - _Requirements: 3.1, 3.2, 3.4_
 
-  - [ ]* 5.4 Write calendar integration tests
+  - [-] 5.4 Write calendar integration tests
     - Create unit tests for .ics file generation and validation
     - Write integration tests for calendar API endpoints
     - Add tests for calendar file format compliance and download functionality
