@@ -93,7 +93,7 @@ export interface SearchFilters {
   location?: LocationFilter;
   categories?: string[];
   priceRange?: PriceRange;
-  distance?: number;
+  keywords?: string[];
 }
 
 export interface DateRange {
@@ -104,16 +104,63 @@ export interface DateRange {
 export interface LocationFilter {
   city?: string;
   state?: string;
-  zipCode?: string;
-  coordinates?: Coordinates;
   radius?: number;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export interface SearchResult {
-  events: Event[];
+  events: SearchEvent[];
   totalResults: number;
   query: string;
   filters?: SearchFilters;
+}
+
+export interface SearchEvent {
+  eventId: string;
+  title: string;
+  description: string;
+  startDateTime: string;
+  endDateTime: string;
+  location: {
+    venue: string;
+    address: string;
+    city: string;
+    state: string;
+  };
+  relevanceScore: number;
+  source: string;
+  isUserSubmitted?: boolean;
+  isSaved?: boolean;
+}
+
+export interface RAGResponse {
+  answer: string;
+  sources: Array<{
+    title: string;
+    url: string;
+    excerpt: string;
+    relevanceScore: number;
+  }>;
+  sessionId?: string;
+}
+
+export interface ConversationalSearchRequest {
+  query: string;
+  sessionId?: string;
+}
+
+export interface SemanticSearchRequest {
+  query: string;
+  filters?: SearchFilters;
+}
+
+export interface PersonalizedFeedOptions {
+  maxResults?: number;
+  includeUserSubmitted?: boolean;
+  boostSavedEvents?: boolean;
 }
 
 // Authentication interfaces

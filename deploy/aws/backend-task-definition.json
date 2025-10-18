@@ -1,0 +1,90 @@
+{
+  "family": "eventsync-${ENVIRONMENT}-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "${TASK_ROLE_ARN}",
+  "taskRoleArn": "${TASK_ROLE_ARN}",
+  "containerDefinitions": [
+    {
+      "name": "eventsync-backend",
+      "image": "${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/eventsync-backend:latest",
+      "portMappings": [
+        {
+          "containerPort": 3001,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "NODE_ENV",
+          "value": "${ENVIRONMENT}"
+        },
+        {
+          "name": "PORT",
+          "value": "3001"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "${REGION}"
+        },
+        {
+          "name": "DYNAMODB_USERS_TABLE",
+          "value": "${USERS_TABLE}"
+        },
+        {
+          "name": "DYNAMODB_EVENTS_TABLE",
+          "value": "${EVENTS_TABLE}"
+        },
+        {
+          "name": "OPENSEARCH_ENDPOINT",
+          "value": "${OPENSEARCH_ENDPOINT}"
+        },
+        {
+          "name": "BEDROCK_KNOWLEDGE_BASE_ID",
+          "value": "${BEDROCK_KNOWLEDGE_BASE_ID}"
+        },
+        {
+          "name": "JWT_SECRET",
+          "value": "${JWT_SECRET}"
+        },
+        {
+          "name": "JWT_REFRESH_SECRET",
+          "value": "${JWT_REFRESH_SECRET}"
+        },
+        {
+          "name": "CORS_ORIGIN",
+          "value": "${CORS_ORIGIN}"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "info"
+        },
+        {
+          "name": "LOG_FORMAT",
+          "value": "json"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/eventsync-${ENVIRONMENT}-backend",
+          "awslogs-region": "${REGION}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "node -e \"require('http').get('http://localhost:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })\""
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ]
+}

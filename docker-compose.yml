@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # Backend API service
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: eventsync-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      # Database Configuration
+      - AWS_REGION=${AWS_REGION}
+      - DYNAMODB_TABLE_PREFIX=${DYNAMODB_TABLE_PREFIX}
+      # Authentication
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
+      # AWS Services
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      # Bedrock Configuration
+      - BEDROCK_REGION=${BEDROCK_REGION}
+      - BEDROCK_KNOWLEDGE_BASE_ID=${BEDROCK_KNOWLEDGE_BASE_ID}
+      - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID}
+      - BEDROCK_EMBEDDING_MODEL_ID=${BEDROCK_EMBEDDING_MODEL_ID}
+      # OpenSearch Configuration
+      - OPENSEARCH_ENDPOINT=${OPENSEARCH_ENDPOINT}
+      - OPENSEARCH_INDEX_NAME=${OPENSEARCH_INDEX_NAME}
+      # CloudWatch Configuration
+      - CLOUDWATCH_LOG_GROUP=${CLOUDWATCH_LOG_GROUP}
+      - CLOUDWATCH_LOG_STREAM=${CLOUDWATCH_LOG_STREAM}
+      # CORS Configuration
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - CORS_CREDENTIALS=${CORS_CREDENTIALS}
+      # Rate Limiting
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS}
+      # Security
+      - BCRYPT_SALT_ROUNDS=${BCRYPT_SALT_ROUNDS}
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL}
+      - LOG_FORMAT=${LOG_FORMAT}
+    volumes:
+      - backend_logs:/app/logs
+    networks:
+      - eventsync-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend React service
+  frontend:
+    build:
+      context: ./dubhacks
+      dockerfile: Dockerfile
+    container_name: eventsync-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
+      - REACT_APP_API_TIMEOUT=${REACT_APP_API_TIMEOUT}
+      - REACT_APP_ENVIRONMENT=production
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - eventsync-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Nginx reverse proxy (optional, for production)
+  nginx:
+    image: nginx:alpine
+    container_name: eventsync-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - eventsync-network
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  backend_logs:
+    driver: local
+  nginx_logs:
+    driver: local
+
+networks:
+  eventsync-network:
+    driver: bridge

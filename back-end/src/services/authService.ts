@@ -177,8 +177,8 @@ export class AuthService {
 
       return { valid: true, userId: decoded.userId };
 
-    } catch (error) {
-      if (error instanceof jwt.TokenExpiredError) {
+    } catch (error: any) {
+      if (error.name === 'TokenExpiredError') {
         return { valid: false, error: 'Token expired' };
       }
       return { valid: false, error: 'Invalid token' };
@@ -230,34 +230,24 @@ export class AuthService {
    * Get user by email
    */
   private async getUserByEmail(email: string): Promise<User | null> {
-    try {
-      const result = await this.dynamoClient.send(new GetCommand({
-        TableName: this.usersTable,
-        Key: { email: email.toLowerCase() }
-      }));
+    const result = await this.dynamoClient.send(new GetCommand({
+      TableName: this.usersTable,
+      Key: { email: email.toLowerCase() }
+    }));
 
-      return result.Item as User || null;
-    } catch (error) {
-      console.error('Error getting user by email:', error);
-      return null;
-    }
+    return result.Item as User || null;
   }
 
   /**
    * Get user by ID
    */
   private async getUserById(userId: string): Promise<User | null> {
-    try {
-      const result = await this.dynamoClient.send(new GetCommand({
-        TableName: this.usersTable,
-        Key: { userId }
-      }));
+    const result = await this.dynamoClient.send(new GetCommand({
+      TableName: this.usersTable,
+      Key: { userId }
+    }));
 
-      return result.Item as User || null;
-    } catch (error) {
-      console.error('Error getting user by ID:', error);
-      return null;
-    }
+    return result.Item as User || null;
   }
 
   /**

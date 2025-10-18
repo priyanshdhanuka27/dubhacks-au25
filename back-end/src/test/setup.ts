@@ -1,17 +1,24 @@
-// Jest setup file for backend tests
-import dotenv from 'dotenv';
+import { config } from '../config';
 
-// Load test environment variables
-dotenv.config({ path: '.env.test' });
-
-// Set test environment
+// Test environment setup
 process.env.NODE_ENV = 'test';
+process.env.JWT_SECRET = 'test-jwt-secret-key-for-testing-only';
+process.env.JWT_EXPIRES_IN = '1h';
+process.env.REFRESH_TOKEN_EXPIRES_IN = '7d';
 
-// Mock AWS SDK for tests
-jest.mock('@aws-sdk/client-dynamodb');
-jest.mock('@aws-sdk/lib-dynamodb');
-jest.mock('@aws-sdk/client-opensearch-serverless');
-jest.mock('@aws-sdk/client-bedrock-runtime');
+// Mock AWS services for testing
+process.env.AWS_REGION = 'us-east-1';
+process.env.DYNAMODB_USERS_TABLE = 'test-eventsync-users';
+process.env.DYNAMODB_ENDPOINT = 'http://localhost:8000';
 
-// Global test timeout
+// Increase test timeout for async operations
 jest.setTimeout(10000);
+
+// Global test setup
+beforeAll(async () => {
+  // Any global setup can go here
+});
+
+afterAll(async () => {
+  // Any global cleanup can go here
+});

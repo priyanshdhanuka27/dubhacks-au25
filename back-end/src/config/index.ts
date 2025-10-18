@@ -1,5 +1,11 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
+// Load environment-specific .env file
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
+
+// Also load default .env file as fallback
 dotenv.config();
 
 export const config = {

@@ -59,7 +59,7 @@ export function AuthPage() {
       </div>
 
       <div className="auth-page-footer">
-        <p>&copy; 2024 EventSync. All rights reserved.</p>
+        <p>&copy; 2025 EventSync. All rights reserved.</p>
       </div>
     </div>
   );
