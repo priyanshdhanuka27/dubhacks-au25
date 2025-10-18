@@ -20,8 +20,6 @@
     "aws-sdk": "^2.1490.0",
     "@aws-sdk/client-dynamodb": "^3.450.0",
     "@aws-sdk/lib-dynamodb": "^3.450.0",
-    "@aws-sdk/client-opensearch-serverless": "^3.450.0",
-    "@aws-sdk/client-bedrock-runtime": "^3.450.0",
     "uuid": "^9.0.1",
     "joi": "^17.11.0",
     "ical-generator": "^4.1.0"
