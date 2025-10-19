@@ -4,10 +4,10 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(247, 230, 202, 0.1);
+  background: rgba(31, 41, 55, 0.9);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(173, 156, 142, 0.1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .navbar-content {

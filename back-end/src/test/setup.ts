@@ -1,13 +1,13 @@
 import { config } from '../config';
 
 // Test environment setup
-process.env.NODE_ENV = 'test';
-process.env.JWT_SECRET = 'test-jwt-secret-key-for-testing-only';
+process.env.NODE_ENV = 'production';
+process.env.JWT_SECRET = '091db82400fdc365fceb64c2fb1fbde4';
 process.env.JWT_EXPIRES_IN = '1h';
 process.env.REFRESH_TOKEN_EXPIRES_IN = '7d';
 
 // Mock AWS services for testing
-process.env.AWS_REGION = 'us-east-1';
+process.env.AWS_REGION = 'us-west-2';
 process.env.DYNAMODB_USERS_TABLE = 'test-eventsync-users';
 process.env.DYNAMODB_ENDPOINT = 'http://localhost:8000';
 

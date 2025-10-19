@@ -43,6 +43,12 @@ const Navigation: React.FC = () => {
             Search
           </Link>
           <Link 
+            to="/featured-events" 
+            className={`nav-link ${isActive('/featured-events') ? 'active' : ''}`}
+          >
+            Featured
+          </Link>
+          <Link 
             to="/events" 
             className={`nav-link ${isActive('/events') ? 'active' : ''}`}
           >

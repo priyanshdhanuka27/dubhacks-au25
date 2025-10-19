@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { AuthPage } from './pages/AuthPage';
 import { LandingPage } from './pages/LandingPage';
+import { SmartFeaturedEventsPage } from './components/common/SmartFeaturedEventsPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import Layout from './components/common/Layout';
@@ -33,6 +34,7 @@ function App() {
                             <Routes>
                                 {/* Public routes */}
                                 <Route path="/" element={<LandingPage />} />
+                                <Route path="/featured-events" element={<SmartFeaturedEventsPage />} />
                                 <Route path="/auth" element={<AuthPage />} />
                                 <Route path="/register" element={<AuthPage initialMode="register" />} />
 
@@ -102,6 +104,8 @@ function App() {
                                         </ProtectedRoute>
                                     }
                                 />
+                                
+
 
                                 {/* Catch all route */}
                                 <Route path="*" element={<Navigate to="/" replace />} />

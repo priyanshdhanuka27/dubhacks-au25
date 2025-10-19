@@ -159,14 +159,14 @@
 /* How It Works Section */
 .how-it-works {
   padding: 6rem 2rem;
-  background: white;
+  background: var(--color-background);
 }
 
 .how-it-works h2 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: #1e293b;
+  color: var(--color-text-primary);
 }
 
 .steps {
@@ -207,17 +207,23 @@
   line-height: 1.6;
 }
 
-/* Social Proof Section */
+/* Social Proof Section - Dark Mode */
 .social-proof {
   padding: 4rem 2rem;
-  background: var(--color-primary-light);
+  background: var(--color-surface);
   text-align: center;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .social-proof h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
   color: var(--color-text-primary);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stats {
@@ -228,15 +234,38 @@
   margin: 0 auto;
 }
 
+.stat {
+  padding: 1.5rem;
+  background: var(--color-background);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
 .stat h3 {
   font-size: 2.5rem;
   color: var(--color-accent);
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 .stat p {
   color: var(--color-text-secondary);
   font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Featured Events Section */
+.featured-events-section {
+  background: var(--color-surface);
+  padding: 2rem 0;
 }
 
 /* CTA Section */

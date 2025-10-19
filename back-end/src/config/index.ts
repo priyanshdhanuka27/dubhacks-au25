@@ -11,7 +11,7 @@ dotenv.config();
 export const config = {
   // Server configuration
   port: process.env.PORT || 3001,
-  nodeEnv: process.env.NODE_ENV || 'development',
+  nodeEnv: process.env.NODE_ENV || 'production',
   
   // JWT configuration
   jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
@@ -21,14 +21,16 @@ export const config = {
   // AWS configuration
   aws: {
     region: process.env.AWS_REGION || 'us-east-1',
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    // Only use access keys for local development
+    // In production (Lambda, App Runner, ECS), IAM roles are used automatically
+    accessKeyId: process.env.NODE_ENV === 'development' ? process.env.AWS_ACCESS_KEY_ID : undefined,
+    secretAccessKey: process.env.NODE_ENV === 'development' ? process.env.AWS_SECRET_ACCESS_KEY : undefined,
     
     // DynamoDB configuration
     dynamodb: {
-      usersTable: process.env.DYNAMODB_USERS_TABLE || 'eventsync-users',
-      eventsTable: process.env.DYNAMODB_EVENTS_TABLE || 'eventsync-events',
-      endpoint: process.env.DYNAMODB_ENDPOINT, // For local development
+      usersTable: process.env.DYNAMODB_TABLE_USERS || process.env.DYNAMODB_USERS_TABLE || 'eventsync-dev-users',
+      eventsTable: process.env.DYNAMODB_TABLE_EVENTS || process.env.DYNAMODB_EVENTS_TABLE || 'eventsync-dev-events',
+      endpoint: process.env.DYNAMODB_ENDPOINT, // For local DynamoDB
     },
     
     // OpenSearch configuration
@@ -81,8 +83,10 @@ export const config = {
 const requiredEnvVars = [
   'JWT_SECRET',
   'AWS_REGION',
-  'DYNAMODB_USERS_TABLE',
-  'DYNAMODB_EVENTS_TABLE',
+];
+
+// Additional required vars for production
+const productionRequiredVars = [
   'OPENSEARCH_ENDPOINT',
   'BEDROCK_KNOWLEDGE_BASE_ID',
 ];
@@ -90,8 +94,20 @@ const requiredEnvVars = [
 export function validateConfig(): void {
   const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
   
+  // Check production-specific vars only in production
+  if (process.env.NODE_ENV === 'production') {
+    const missingProdVars = productionRequiredVars.filter(varName => !process.env[varName]);
+    missingVars.push(...missingProdVars);
+  }
+  
   if (missingVars.length > 0) {
     console.error('Missing required environment variables:', missingVars);
+    console.log('Available deployment options:');
+    console.log('1. AWS App Runner (recommended)');
+    console.log('2. AWS Lambda + API Gateway');
+    console.log('3. AWS ECS Fargate');
+    console.log('4. Local development with AWS credentials');
+    
     if (process.env.NODE_ENV === 'production') {
       process.exit(1);
     }

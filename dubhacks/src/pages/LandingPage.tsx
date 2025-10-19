@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../components/common/Navbar';
+import { FeaturedEvents } from '../components/home/FeaturedEvents';
 import './LandingPage.css';
 
 export function LandingPage() {
@@ -86,6 +87,11 @@ export function LandingPage() {
             <p>User Rating</p>
           </div>
         </div>
+      </section>
+
+      {/* Featured Events Section */}
+      <section className="featured-events-section">
+        <FeaturedEvents />
       </section>
 
       {/* CTA Section */}

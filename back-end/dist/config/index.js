@@ -10,14 +10,14 @@ dotenv_1.default.config();
 exports.config = {
     // Server configuration
     port: process.env.PORT || 3001,
-    nodeEnv: process.env.NODE_ENV || 'development',
+    nodeEnv: process.env.NODE_ENV || 'production',
     // JWT configuration
     jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
     refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || '7d',
     // AWS configuration
     aws: {
-        region: process.env.AWS_REGION || 'us-east-1',
+        region: process.env.AWS_REGION || 'us-west-2',
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         // DynamoDB configuration
@@ -29,12 +29,12 @@ exports.config = {
         // OpenSearch configuration
         opensearch: {
             endpoint: process.env.OPENSEARCH_ENDPOINT,
-            region: process.env.OPENSEARCH_REGION || 'us-east-1',
+            region: process.env.OPENSEARCH_REGION || 'us-west-2',
             indexName: process.env.OPENSEARCH_INDEX_NAME || 'eventsync-events',
         },
         // Bedrock configuration
         bedrock: {
-            region: process.env.BEDROCK_REGION || 'us-east-1',
+            region: process.env.BEDROCK_REGION || 'us-west-2',
             knowledgeBaseId: process.env.BEDROCK_KNOWLEDGE_BASE_ID,
             modelId: process.env.BEDROCK_MODEL_ID || 'anthropic.claude-3-sonnet-20240229-v1:0',
             embeddingModelId: process.env.BEDROCK_EMBEDDING_MODEL_ID || 'amazon.titan-embed-text-v2:0',
@@ -42,7 +42,7 @@ exports.config = {
         // CloudWatch configuration
         cloudwatch: {
             logGroupName: process.env.CLOUDWATCH_LOG_GROUP || '/aws/lambda/eventsync',
-            region: process.env.CLOUDWATCH_REGION || 'us-east-1',
+            region: process.env.CLOUDWATCH_REGION || 'us-west-2',
         },
     },
     // CORS configuration

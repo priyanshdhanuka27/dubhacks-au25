@@ -1,0 +1,71 @@
+/* Featured Events Page Styles */
+
+.featured-events-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  padding-top: 2rem;
+}
+
+/* Add top padding when navbar is present (non-authenticated users) */
+.featured-events-page:has(.navbar) {
+  padding-top: 5rem;
+}
+
+/* Fallback for browsers that don't support :has() */
+.featured-events-page .navbar + .page-header {
+  margin-top: 3rem;
+}
+
+.page-header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .page-header p {
+    font-size: 1.1rem;
+  }
+  
+  .featured-events-page {
+    padding-top: 1rem;
+  }
+  
+  .page-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .page-header p {
+    font-size: 1rem;
+  }
+}

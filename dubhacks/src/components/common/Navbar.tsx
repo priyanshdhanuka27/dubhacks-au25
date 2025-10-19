@@ -18,11 +18,13 @@ export function Navbar() {
             <>
               <Link to="/dashboard" className="nav-link">Dashboard</Link>
               <Link to="/search" className="nav-link">Search</Link>
+              <Link to="/featured-events" className="nav-link">Featured Events</Link>
               <Link to="/profile" className="nav-link">Profile</Link>
               <button onClick={logout} className="nav-link btn-link">Logout</button>
             </>
           ) : (
             <>
+              <Link to="/featured-events" className="nav-link">Featured Events</Link>
               <Link to="/auth" className="nav-link">Login</Link>
               <Link to="/register" className="nav-link btn-primary">Get Started</Link>
             </>

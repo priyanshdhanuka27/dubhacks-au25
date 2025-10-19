@@ -6,9 +6,9 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: #ffffff;
+  background: var(--color-background);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 /* Headers */
@@ -20,22 +20,22 @@
   align-items: center;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .profile-header h2,
 .preferences-header h2,
 .saved-events-header h2 {
   margin: 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 28px;
   font-weight: 600;
 }
 
 .events-count {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 14px;
-  background: #f8f9fa;
+  background: var(--color-surface);
   padding: 4px 12px;
   border-radius: 16px;
 }
@@ -55,36 +55,36 @@
 }
 
 .edit-button {
-  background: #007bff;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-background);
 }
 
 .edit-button:hover {
-  background: #0056b3;
+  background: var(--color-primary-dark);
 }
 
 .save-button {
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--color-background);
   margin-right: 12px;
 }
 
 .save-button:hover {
-  background: #1e7e34;
+  background: var(--color-primary-dark);
 }
 
 .save-button:disabled {
-  background: #6c757d;
+  background: var(--color-text-muted);
   cursor: not-allowed;
 }
 
 .cancel-button {
-  background: #6c757d;
-  color: white;
+  background: var(--color-text-muted);
+  color: var(--color-background);
 }
 
 .cancel-button:hover {
-  background: #545b62;
+  background: var(--color-text-secondary);
 }
 
 .cancel-button:disabled {
@@ -93,14 +93,14 @@
 }
 
 .unsave-button {
-  background: #dc3545;
-  color: white;
+  background: var(--color-error);
+  color: var(--color-background);
   font-size: 12px;
   padding: 6px 12px;
 }
 
 .unsave-button:hover {
-  background: #c82333;
+  background: var(--color-primary-dark);
 }
 
 /* Sections */
@@ -108,20 +108,20 @@
 .preferences-section {
   margin-bottom: 32px;
   padding: 20px;
-  background: #f8f9fa;
+  background: var(--color-surface);
   border-radius: 8px;
 }
 
 .profile-section h3,
 .preferences-section h3 {
   margin: 0 0 16px 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 20px;
   font-weight: 500;
 }
 
 .section-description {
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 14px;
   margin-bottom: 16px;
   line-height: 1.5;
@@ -142,7 +142,7 @@
 .form-group label {
   display: block;
   margin-bottom: 6px;
-  color: #333;
+  color: var(--color-text-primary);
   font-weight: 500;
   font-size: 14px;
 }
@@ -152,18 +152,20 @@
 .form-group textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.2s ease;
+  background: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(173, 156, 142, 0.25);
 }
 
 .form-group textarea {
@@ -172,7 +174,7 @@
 }
 
 .field-description {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 12px;
   margin-top: 4px;
   line-height: 1.4;
@@ -181,7 +183,7 @@
 /* Profile Values */
 .profile-value,
 .preference-value {
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 14px;
   padding: 10px 0;
 }
@@ -195,8 +197,8 @@
 }
 
 .interest-tag {
-  background: #007bff;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-background);
   padding: 4px 12px;
   border-radius: 16px;
   font-size: 12px;
@@ -210,12 +212,12 @@
 
 .location-line {
   margin-bottom: 4px;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 14px;
 }
 
 .location-line.coordinates {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 12px;
   font-family: monospace;
 }
@@ -480,9 +482,9 @@ ser Dashboard Styles */
 
 .dashboard-tabs {
   display: flex;
-  background: white;
+  background: var(--color-background);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
   overflow: hidden;
 }
@@ -491,8 +493,8 @@ ser Dashboard Styles */
   flex: 1;
   padding: 16px 24px;
   border: none;
-  background: white;
-  color: #666;
+  background: var(--color-background);
+  color: var(--color-text-muted);
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -501,20 +503,20 @@ ser Dashboard Styles */
 }
 
 .tab-button:hover {
-  background: #f8f9fa;
-  color: #333;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 }
 
 .tab-button.active {
-  color: #007bff;
-  border-bottom-color: #007bff;
-  background: #f8f9fa;
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: var(--color-surface);
 }
 
 .dashboard-content {
-  background: white;
+  background: var(--color-background);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
 }
 
@@ -530,14 +532,14 @@ ser Dashboard Styles */
 
 .welcome-section h2 {
   margin: 0 0 8px 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 32px;
   font-weight: 600;
 }
 
 .welcome-section p {
   margin: 0;
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 16px;
 }
 
@@ -553,10 +555,10 @@ ser Dashboard Styles */
   display: flex;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--gradient-accent);
+  color: var(--color-background);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .stat-icon {
@@ -593,7 +595,7 @@ ser Dashboard Styles */
 
 .section-header h3 {
   margin: 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 24px;
   font-weight: 600;
 }
@@ -606,10 +608,12 @@ ser Dashboard Styles */
   padding: 8px;
   border-radius: 6px;
   transition: background-color 0.2s ease;
+  color: var(--color-text-secondary);
 }
 
 .refresh-button:hover {
-  background: #f8f9fa;
+  background: var(--color-surface);
+  color: var(--color-accent);
 }
 
 .recommendations-grid {
@@ -619,21 +623,21 @@ ser Dashboard Styles */
 }
 
 .recommendation-card {
-  background: #f8f9fa;
+  background: var(--color-surface);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
   transition: all 0.2s ease;
 }
 
 .recommendation-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
 
 .event-info h4 {
   margin: 0 0 8px 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 18px;
   font-weight: 600;
 }
@@ -642,14 +646,14 @@ ser Dashboard Styles */
 .event-location,
 .event-category {
   margin: 4px 0;
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 14px;
 }
 
 .event-category {
   display: inline-block;
-  background: #007bff;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-background);
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 12px;
@@ -662,8 +666,8 @@ ser Dashboard Styles */
 }
 
 .save-event-button {
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--color-background);
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
@@ -674,20 +678,20 @@ ser Dashboard Styles */
 }
 
 .save-event-button:hover {
-  background: #1e7e34;
+  background: var(--color-primary-dark);
 }
 
 .no-recommendations {
   text-align: center;
   padding: 40px 20px;
-  color: #666;
+  color: var(--color-text-muted);
   font-style: italic;
 }
 
 /* Profile Summary */
 .profile-summary h3 {
   margin: 0 0 20px 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 24px;
   font-weight: 600;
 }
@@ -700,13 +704,13 @@ ser Dashboard Styles */
 
 .summary-item {
   padding: 16px;
-  background: #f8f9fa;
+  background: var(--color-surface);
   border-radius: 8px;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid var(--color-accent);
 }
 
 .summary-item strong {
-  color: #333;
+  color: var(--color-text-primary);
   display: block;
   margin-bottom: 4px;
 }
