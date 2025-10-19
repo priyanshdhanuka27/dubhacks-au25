@@ -7,8 +7,12 @@ import './AuthPage.css';
 
 type AuthMode = 'login' | 'register';
 
-export function AuthPage() {
-  const [mode, setMode] = useState<AuthMode>('login');
+interface AuthPageProps {
+  initialMode?: AuthMode;
+}
+
+export function AuthPage({ initialMode = 'login' }: AuthPageProps) {
+  const [mode, setMode] = useState<AuthMode>(initialMode);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,8 +43,8 @@ export function AuthPage() {
     <div className="auth-page">
       <div className="auth-page-header">
         <div className="auth-page-logo">
-          <h1>EventSync</h1>
-          <p>Discover events with AI-powered search</p>
+          <h1>Evently</h1>
+          <p>Your AI-powered event discovery companion</p>
         </div>
       </div>
 

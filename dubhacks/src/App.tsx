@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { AuthPage } from './pages/AuthPage';
+import { LandingPage } from './pages/LandingPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import Layout from './components/common/Layout';
@@ -31,7 +32,9 @@ function App() {
                         <div className="App">
                             <Routes>
                                 {/* Public routes */}
+                                <Route path="/" element={<LandingPage />} />
                                 <Route path="/auth" element={<AuthPage />} />
+                                <Route path="/register" element={<AuthPage initialMode="register" />} />
 
                                 {/* Protected routes with layout */}
                                 <Route
@@ -100,11 +103,8 @@ function App() {
                                     }
                                 />
 
-                                {/* Default redirect */}
-                                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
                                 {/* Catch all route */}
-                                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                                <Route path="*" element={<Navigate to="/" replace />} />
                             </Routes>
                         </div>
                     </Router>
